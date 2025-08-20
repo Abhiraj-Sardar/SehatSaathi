@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Home, User, Settings, FileText, Mail, Calendar } from 'lucide-react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Ngolist from './Ngolist';
 
 export default function Dashboard() {
   const [activeMenu, setActiveMenu] = useState('Home');
@@ -7,7 +9,7 @@ export default function Dashboard() {
   const menuItems = [
     { name: 'Home', icon: Home },
     { name: 'Profile', icon: User },
-    { name: 'Documents', icon: FileText },
+    { name: 'Workshops', icon: FileText },
     { name: 'Messages', icon: Mail },
     { name: 'Calendar', icon: Calendar },
     { name: 'Settings', icon: Settings }
@@ -16,6 +18,7 @@ export default function Dashboard() {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Left Sidebar - 30% width */}
+      <BrowserRouter>
       <div className="w-3/10 bg-slate-800 text-white p-6 shadow-lg">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-white">Dashboard</h1>
@@ -36,7 +39,7 @@ export default function Dashboard() {
                 }`}
               >
                 <IconComponent size={20} />
-                <span className="font-medium">{item.name}</span>
+                <span className="font-medium"><Link to={`/${item.name}`}>{item.name}</Link></span>
               </button>
             );
           })}
@@ -44,17 +47,27 @@ export default function Dashboard() {
       </div>
 
       {/* Right Content Area - 70% width */}
-      <div className="w-7/10 p-8 overflow-y-auto">
+      <div className="w-dvw p-8 overflow-y-auto ">
         <div className="max-w-4xl">
           <header className="mb-8">
             <h2 className="text-3xl font-bold text-gray-800 mb-2">{activeMenu}</h2>
             <p className="text-gray-600">This is the {activeMenu.toLowerCase()} section of your dashboard.</p>
           </header>
           
+            {/* <nav>
+              
+              <Link to="/about">About</Link>
+            </nav> */}
+
+            <Routes>
+              <Route path="/Workshops" element={<Ngolist/>} />
+            </Routes>
+          
           
           
         </div>
       </div>
+      </BrowserRouter>
     </div>
   );
 }

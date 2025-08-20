@@ -46,7 +46,7 @@ function Ngolist() {
 
     return (
       <div
-        className="bg-white shadow-md rounded-lg p-6 mb-6 w-full max-w-3xl
+        className="bg-white shadow-md rounded-lg p-6 mb-6 w-full max-w-5xl 
                    transform transition duration-300 hover:scale-105 hover:shadow-xl"
       >
         <h2 className="text-2xl font-bold mb-2">{event.title}</h2>
@@ -97,7 +97,7 @@ function Ngolist() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8">
+    <div className="min-h-screen flex flex-col w-[80vw] items-center py-8">
       <h1 className="text-3xl font-bold mb-8">NGO Health Drives</h1>
 
       <div className="flex flex-col items-center w-full px-4">
