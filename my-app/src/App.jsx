@@ -8,8 +8,8 @@ function App() {
   return (
     <>
     <Navbar/>
-    {/* <Dashboard/> */}
-    {/* <Ngolist/> */}
+    <Dashboard/> 
+    <Ngolist/> 
     < MedicalConsultationForm/>
     </>
   );
