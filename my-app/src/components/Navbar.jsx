@@ -85,16 +85,16 @@ const [isOpen, setIsOpen] = useState(false); // mobile menu
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="flex items-centertext-gray-500 transition hover:text-gray-500/75 dark:text-white dark:hover:text-white/75"
               >
-                Services <ChevronDown className="ml-1 h-6 w-4" />
+                Services <ChevronDown className="ml-1 h-5 w-4" />
               </button>
               {dropdownOpen && (
-                <ul className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white border z-50">
+                <ul className="absolute left-0 mt-2 w-36 rounded-md shadow-lg bg-white border z-50">
                   <li>
                     <button
                       onClick={() => setDropdownOpen(false)}
                       className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                     >
-                     Content
+                     Blogs/Articles
                     </button>
                   </li>
                   <li>
@@ -102,7 +102,7 @@ const [isOpen, setIsOpen] = useState(false); // mobile menu
                       onClick={() => setDropdownOpen(false)}
                       className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                     >
-                      
+                    Illness Reports
                     </button>
                   </li>
                   <li>
@@ -110,7 +110,7 @@ const [isOpen, setIsOpen] = useState(false); // mobile menu
                       onClick={() => setDropdownOpen(false)}
                       className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                     >
-                      App Development
+                     Online Consultation
                     </button>
                   </li>
                   <li>
@@ -118,7 +118,7 @@ const [isOpen, setIsOpen] = useState(false); // mobile menu
                       onClick={() => setDropdownOpen(false)}
                       className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                     >
-                      UI/UX Design
+                      Health Analysis
                     </button>
                   </li>
                 </ul>
