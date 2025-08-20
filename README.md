@@ -1,5 +1,3 @@
 # SehatSaathi
 
-hello
-
-my name is devang
+- npm i recharts
