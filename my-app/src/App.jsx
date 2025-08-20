@@ -3,14 +3,14 @@ import React from "react";
 import Navbar from "./components/Navbar";
 import Dashboard from "./components/Dashboard";
 import Ngolist from "./components/Ngolist";
-
-
+import  MedicalConsultationForm from "./components/MedicalConsultationForm";
 function App() {
   return (
     <>
     <Navbar/>
-    <Dashboard/>
-    <Ngolist/>
+    {/* <Dashboard/> */}
+    {/* <Ngolist/> */}
+    < MedicalConsultationForm/>
     </>
   );
 }
