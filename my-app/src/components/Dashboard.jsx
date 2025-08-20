@@ -51,35 +51,8 @@ export default function Dashboard() {
             <p className="text-gray-600">This is the {activeMenu.toLowerCase()} section of your dashboard.</p>
           </header>
           
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200">
-                <h3 className="font-semibold text-blue-800 mb-2">Card 1</h3>
-                <p className="text-blue-600 text-sm">Sample content for the {activeMenu} section.</p>
-              </div>
-              
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg border border-green-200">
-                <h3 className="font-semibold text-green-800 mb-2">Card 2</h3>
-                <p className="text-green-600 text-sm">More content related to {activeMenu}.</p>
-              </div>
-              
-              <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg border border-purple-200">
-                <h3 className="font-semibold text-purple-800 mb-2">Card 3</h3>
-                <p className="text-purple-600 text-sm">Additional {activeMenu} information here.</p>
-              </div>
-            </div>
-            
-            <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-              <h4 className="font-semibold text-gray-800 mb-3">Current Selection: {activeMenu}</h4>
-              <p className="text-gray-600 mb-4">
-                You've selected the {activeMenu} menu item. The content in this area would typically display 
-                information and functionality related to the selected menu option.
-              </p>
-              <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                Action Button
-              </button>
-            </div>
-          </div>
+          
+          
         </div>
       </div>
     </div>
