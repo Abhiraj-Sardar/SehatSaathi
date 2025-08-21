@@ -5,15 +5,17 @@ import Ngolist from "./components/Ngolist";
 import LoginForm from "./components/LoginForm";
 import MedicalConsultationForm from "./components/MedicalConsultationForm";
 import NGOEventForm from "./components/NGOEventForm";
+import Home from "./components/Home";
 
 function App() {
   return (
     <>
-    <Navbar/>
-    <Dashboard/>
+    {/* <Navbar/>
+    <Dashboard/> */}
     {/* <LoginForm/> */}
     {/* <MedicalConsultationForm/> */}
     {/* <NGOEventForm/> */}
+    <Home/>
     </>
   );
 }
