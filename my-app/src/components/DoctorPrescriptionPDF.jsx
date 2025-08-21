@@ -1,0 +1,489 @@
+import React, { useState } from 'react';
+import { Download, Plus, Trash2, FileText, Stethoscope, Pill, TestTube, User, Calendar, Clock } from 'lucide-react';
+
+const DoctorPrescriptionPDF = () => {
+  const [patientInfo, setPatientInfo] = useState({
+    name: 'John Smith',
+    age: 45,
+    gender: 'Male',
+    contact: '+91 9876543210',
+    address: '123 Medical Street, Mumbai',
+    date: new Date().toISOString().split('T')[0],
+    doctorName: 'Dr. Sarah Wilson',
+    doctorId: 'MD12345',
+    hospital: 'City General Hospital'
+  });
+
+  const [medicines, setMedicines] = useState([
+    {
+      id: 1,
+      name: 'Amoxicillin 500mg',
+      dosage: '1 tablet',
+      frequency: 'Twice daily',
+      duration: '7 days',
+      instructions: 'Take after meals',
+      quantity: '14 tablets'
+    }
+  ]);
+
+  const [tests, setTests] = useState([
+    {
+      id: 1,
+      name: 'Complete Blood Count (CBC)',
+      instructions: 'Fasting not required',
+      urgency: 'Routine',
+      notes: 'To check infection levels'
+    }
+  ]);
+
+  const [diagnosis, setDiagnosis] = useState('Upper Respiratory Tract Infection');
+  const [symptoms, setSymptoms] = useState('Cough, fever, sore throat');
+  const [followUpDays, setFollowUpDays] = useState(7);
+  const [additionalNotes, setAdditionalNotes] = useState('Rest well, drink plenty of fluids');
+
+  const addMedicine = () => {
+    const newMedicine = {
+      id: Date.now(),
+      name: '',
+      dosage: '',
+      frequency: '',
+      duration: '',
+      instructions: '',
+      quantity: ''
+    };
+    setMedicines([...medicines, newMedicine]);
+  };
+
+  const removeMedicine = (id) => {
+    setMedicines(medicines.filter(med => med.id !== id));
+  };
+
+  const updateMedicine = (id, field, value) => {
+    setMedicines(medicines.map(med => 
+      med.id === id ? { ...med, [field]: value } : med
+    ));
+  };
+
+  const addTest = () => {
+    const newTest = {
+      id: Date.now(),
+      name: '',
+      instructions: '',
+      urgency: 'Routine',
+      notes: ''
+    };
+    setTests([...tests, newTest]);
+  };
+
+  const removeTest = (id) => {
+    setTests(tests.filter(test => test.id !== id));
+  };
+
+  const updateTest = (id, field, value) => {
+    setTests(tests.map(test => 
+      test.id === id ? { ...test, [field]: value } : test
+    ));
+  };
+
+  const generatePDF = () => {
+    const currentDate = new Date().toLocaleDateString('en-IN');
+    const currentTime = new Date().toLocaleTimeString('en-IN');
+    
+    const pdfContent = `
+═══════════════════════════════════════════════════════════════
+                    MEDICAL PRESCRIPTION & TEST ORDERS
+═══════════════════════════════════════════════════════════════
+
+Hospital: ${patientInfo.hospital}
+Doctor: ${patientInfo.doctorName} (${patientInfo.doctorId})
+Date: ${currentDate} | Time: ${currentTime}
+
+───────────────────────────────────────────────────────────────
+                        PATIENT INFORMATION
+───────────────────────────────────────────────────────────────
+
+Name: ${patientInfo.name}
+Age: ${patientInfo.age} years | Gender: ${patientInfo.gender}
+Contact: ${patientInfo.contact}
+Address: ${patientInfo.address}
+
+───────────────────────────────────────────────────────────────
+                      CLINICAL INFORMATION
+───────────────────────────────────────────────────────────────
+
+Presenting Symptoms: ${symptoms}
+Diagnosis: ${diagnosis}
+
+───────────────────────────────────────────────────────────────
+                         PRESCRIPTIONS
+───────────────────────────────────────────────────────────────
+
+${medicines.map((med, index) => `
+${index + 1}. Medicine: ${med.name}
+   Dosage: ${med.dosage}
+   Frequency: ${med.frequency}
+   Duration: ${med.duration}
+   Quantity: ${med.quantity}
+   Instructions: ${med.instructions}
+`).join('')}
+
+───────────────────────────────────────────────────────────────
+                        LABORATORY TESTS
+───────────────────────────────────────────────────────────────
+
+${tests.length > 0 ? tests.map((test, index) => `
+${index + 1}. Test: ${test.name}
+   Urgency: ${test.urgency}
+   Instructions: ${test.instructions}
+   Notes: ${test.notes}
+`).join('') : 'No laboratory tests ordered.'}
+
+───────────────────────────────────────────────────────────────
+                      ADDITIONAL INSTRUCTIONS
+───────────────────────────────────────────────────────────────
+
+${additionalNotes}
+
+Follow-up: Please return after ${followUpDays} days or if symptoms worsen.
+
+───────────────────────────────────────────────────────────────
+                           DISCLAIMER
+───────────────────────────────────────────────────────────────
+
+• Take medicines exactly as prescribed
+• Do not stop medication abruptly without consulting doctor
+• Report any adverse reactions immediately
+• Keep all medications out of reach of children
+• Store medicines in cool, dry place
+
+Doctor's Signature: ________________
+Date: ${currentDate}
+
+Generated by Medical Dashboard System
+License No: ${patientInfo.doctorId}
+═══════════════════════════════════════════════════════════════
+    `;
+
+    const blob = new Blob([pdfContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `prescription-${patientInfo.name.replace(' ', '-')}-${currentDate.replace(/\//g, '-')}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 p-6">
+      {/* Background Text Elements */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-10 left-10 text-8xl font-bold text-green-100 transform -rotate-12 select-none opacity-20">
+          Rx
+        </div>
+        <div className="absolute top-32 right-16 text-6xl font-bold text-blue-100 transform rotate-12 select-none opacity-15">
+          PRESCRIPTION
+        </div>
+        <div className="absolute bottom-20 left-20 text-5xl font-bold text-purple-100 transform -rotate-6 select-none opacity-20">
+          MEDICINE
+        </div>
+        <div className="absolute bottom-40 right-10 text-4xl font-bold text-pink-100 transform rotate-45 select-none opacity-15">
+          TESTS
+        </div>
+        <div className="absolute top-1/2 left-1/3 text-9xl font-bold text-gray-100 transform rotate-3 select-none opacity-10">
+          DOCTOR
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="bg-gradient-to-br from-green-500 to-blue-600 p-3 rounded-full">
+                <Stethoscope className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-800">Medical Prescription System</h1>
+                <p className="text-gray-600">Generate prescriptions and test orders</p>
+              </div>
+            </div>
+            
+            <button
+              onClick={generatePDF}
+              className="bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-3 rounded-lg flex items-center space-x-2 hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+            >
+              <Download className="w-5 h-5" />
+              <span className="font-semibold">Generate PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Patient Information */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+              <User className="w-5 h-5 mr-2 text-blue-600" />
+              Patient Information
+            </h2>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Patient Name</label>
+                <input
+                  type="text"
+                  value={patientInfo.name}
+                  onChange={(e) => setPatientInfo({...patientInfo, name: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
+                  <input
+                    type="number"
+                    value={patientInfo.age}
+                    onChange={(e) => setPatientInfo({...patientInfo, age: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                  <select
+                    value={patientInfo.gender}
+                    onChange={(e) => setPatientInfo({...patientInfo, gender: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Symptoms</label>
+                <textarea
+                  value={symptoms}
+                  onChange={(e) => setSymptoms(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  rows="2"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Diagnosis</label>
+                <input
+                  type="text"
+                  value={diagnosis}
+                  onChange={(e) => setDiagnosis(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Medicines Section */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-800 flex items-center">
+                <Pill className="w-5 h-5 mr-2 text-green-600" />
+                Prescriptions
+              </h2>
+              <button
+                onClick={addMedicine}
+                className="bg-green-600 text-white px-3 py-2 rounded-lg flex items-center space-x-1 hover:bg-green-700 transition-colors"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add</span>
+              </button>
+            </div>
+            
+            <div className="space-y-4 max-h-96 overflow-y-auto">
+              {medicines.map((medicine, index) => (
+                <div key={medicine.id} className="border border-gray-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-semibold text-gray-700">Medicine {index + 1}</span>
+                    <button
+                      onClick={() => removeMedicine(medicine.id)}
+                      className="text-red-500 hover:text-red-700 p-1"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <input
+                      type="text"
+                      placeholder="Medicine name & strength"
+                      value={medicine.name}
+                      onChange={(e) => updateMedicine(medicine.id, 'name', e.target.value)}
+                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-green-500"
+                    />
+                    <div className="grid grid-cols-2 gap-2">
+                      <input
+                        type="text"
+                        placeholder="Dosage"
+                        value={medicine.dosage}
+                        onChange={(e) => updateMedicine(medicine.id, 'dosage', e.target.value)}
+                        className="px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-green-500"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Frequency"
+                        value={medicine.frequency}
+                        onChange={(e) => updateMedicine(medicine.id, 'frequency', e.target.value)}
+                        className="px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-green-500"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <input
+                        type="text"
+                        placeholder="Duration"
+                        value={medicine.duration}
+                        onChange={(e) => updateMedicine(medicine.id, 'duration', e.target.value)}
+                        className="px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-green-500"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Quantity"
+                        value={medicine.quantity}
+                        onChange={(e) => updateMedicine(medicine.id, 'quantity', e.target.value)}
+                        className="px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-green-500"
+                      />
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Special instructions"
+                      value={medicine.instructions}
+                      onChange={(e) => updateMedicine(medicine.id, 'instructions', e.target.value)}
+                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-green-500"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Tests Section */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-800 flex items-center">
+                <TestTube className="w-5 h-5 mr-2 text-purple-600" />
+                Laboratory Tests
+              </h2>
+              <button
+                onClick={addTest}
+                className="bg-purple-600 text-white px-3 py-2 rounded-lg flex items-center space-x-1 hover:bg-purple-700 transition-colors"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add</span>
+              </button>
+            </div>
+            
+            <div className="space-y-4 max-h-96 overflow-y-auto">
+              {tests.map((test, index) => (
+                <div key={test.id} className="border border-gray-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-semibold text-gray-700">Test {index + 1}</span>
+                    <button
+                      onClick={() => removeTest(test.id)}
+                      className="text-red-500 hover:text-red-700 p-1"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <input
+                      type="text"
+                      placeholder="Test name"
+                      value={test.name}
+                      onChange={(e) => updateTest(test.id, 'name', e.target.value)}
+                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-purple-500"
+                    />
+                    <select
+                      value={test.urgency}
+                      onChange={(e) => updateTest(test.id, 'urgency', e.target.value)}
+                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-purple-500"
+                    >
+                      <option value="Routine">Routine</option>
+                      <option value="Urgent">Urgent</option>
+                      <option value="STAT">STAT</option>
+                    </select>
+                    <input
+                      type="text"
+                      placeholder="Special instructions"
+                      value={test.instructions}
+                      onChange={(e) => updateTest(test.id, 'instructions', e.target.value)}
+                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-purple-500"
+                    />
+                    <textarea
+                      placeholder="Notes"
+                      value={test.notes}
+                      onChange={(e) => updateTest(test.id, 'notes', e.target.value)}
+                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-1 focus:ring-purple-500"
+                      rows="2"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Instructions */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mt-6">
+          <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+            <FileText className="w-5 h-5 mr-2 text-blue-600" />
+            Additional Instructions & Follow-up
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
+              <textarea
+                value={additionalNotes}
+                onChange={(e) => setAdditionalNotes(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                rows="4"
+                placeholder="General advice, dietary instructions, lifestyle changes..."
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Follow-up</label>
+              <div className="flex items-center space-x-2">
+                <Calendar className="w-5 h-5 text-blue-600" />
+                <input
+                  type="number"
+                  value={followUpDays}
+                  onChange={(e) => setFollowUpDays(e.target.value)}
+                  className="w-20 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  min="1"
+                />
+                <span className="text-gray-700">days</span>
+              </div>
+              
+              <div className="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                <div className="flex items-center space-x-2 text-yellow-800">
+                  <Clock className="w-4 h-4" />
+                  <span className="font-semibold text-sm">Important Reminders:</span>
+                </div>
+                <ul className="text-sm text-yellow-700 mt-2 space-y-1">
+                  <li>• Complete the full course of medication</li>
+                  <li>• Return if symptoms worsen</li>
+                  <li>• Follow dietary restrictions if any</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DoctorPrescriptionPDF;
