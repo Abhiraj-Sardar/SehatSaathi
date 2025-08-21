@@ -1,50 +1,120 @@
 import React, { useState } from "react";
 import { Plus, ArrowRight, Calendar, Tag, X } from "lucide-react";
-import Navbar from "./Navbar";
 
-const Article = () => {
+const Articles = () => {
   const [cards, setCards] = useState([
-    {
-      id: 1,
-      title: "React Development Mastery",
-      description:
-        "Complete guide to building modern React applications with hooks, context, and best practices for scalable development.",
-      date: "Aug 21, 2025",
-    },
-    {
-      id: 2,
-      title: "Tailwind CSS Design System",
-      description:
-        "Learn to create beautiful, responsive designs using utility-first CSS framework with component examples.",
-      date: "Aug 20, 2025",
-    },
-    {
-      id: 3,
-      title: "Node.js Backend APIs",
-      description:
-        "Build robust RESTful APIs with Node.js, Express, and MongoDB for full-stack web applications.",
-      date: "Aug 19, 2025",
-    },
-    {
-      id: 4,
-      title: "JavaScript ES6+ Features",
-      description:
-        "Master modern JavaScript features including async/await, destructuring, modules, and arrow functions.",
-      date: "Aug 18, 2025",
-    },
-    {
-      id: 5,
-      title: "Database Design Principles",
-      description:
-        "Understand relational database design, normalization, indexing, and optimization techniques.",
-      date: "Aug 17, 2025",
-    },
-    {
-      id: 6,
-      title: "Exercise Helps",
-      description: "Exercise helps your body to keep fit and fine",
-      date: "Aug 17, 2025",
-    },
+     {
+    id: 1,
+    title: "Holistic Wellness Blueprint",
+    description:
+      "A step-by-step guide to balancing physical fitness, mental health, and nutrition for a healthier lifestyle.",
+    date: "Aug 21, 2025",
+  },
+  {
+    id: 2,
+    title: "Mindful Eating Habits",
+    description:
+      "Learn how mindful eating can improve digestion, reduce stress, and help you build a positive relationship with food.",
+    date: "Aug 22, 2025",
+  },
+  {
+    id: 3,
+    title: "Strength Training for Beginners",
+    description:
+      "An easy-to-follow introduction to resistance training, muscle building, and preventing injuries.",
+    date: "Aug 23, 2025",
+  },
+  {
+    id: 4,
+    title: "Yoga for Inner Peace",
+    description:
+      "Discover yoga practices and breathing techniques to reduce anxiety, improve posture, and enhance mindfulness.",
+    date: "Aug 24, 2025",
+  },
+  {
+    id: 5,
+    title: "Sleep Smarter, Live Better",
+    description:
+      "Science-backed strategies to improve sleep quality and boost daily energy levels naturally.",
+    date: "Aug 25, 2025",
+  },
+  {
+    id: 6,
+    title: "Cardio That Works",
+    description:
+      "Effective cardio routines for heart health, fat loss, and building long-lasting stamina.",
+    date: "Aug 26, 2025",
+  },
+  {
+    id: 7,
+    title: "Healthy Habits for Busy People",
+    description:
+      "Practical wellness routines to stay fit and healthy even with a demanding lifestyle.",
+    date: "Aug 27, 2025",
+  },
+  {
+    id: 8,
+    title: "Mental Fitness Mastery",
+    description:
+      "Boost focus, resilience, and emotional well-being with mindfulness and brain-training techniques.",
+    date: "Aug 28, 2025",
+  },
+  {
+    id: 9,
+    title: "Nutrition Myths Busted",
+    description:
+      "Separating fact from fiction in modern dieting trends and exploring sustainable nutrition choices.",
+    date: "Aug 29, 2025",
+  },
+  {
+    id: 10,
+    title: "The Wellness Reset",
+    description:
+      "A 7-day plan to detox your body, refresh your mind, and reset your health goals.",
+    date: "Aug 30, 2025",
+  },
+  {
+    id: 11,
+    title: "Hydration and Health",
+    description:
+      "Understand the importance of hydration, how much water your body really needs, and the impact on energy and skin health.",
+    date: "Aug 31, 2025",
+  },
+  {
+    id: 12,
+    title: "Desk Job Fitness Hacks",
+    description:
+      "Simple stretches and movement routines to prevent back pain, eye strain, and stiffness while working long hours.",
+    date: "Sep 1, 2025",
+  },
+  {
+    id: 13,
+    title: "Gut Health Matters",
+    description:
+      "Explore the connection between gut microbiome, immunity, and mental wellness with practical diet tips.",
+    date: "Sep 2, 2025",
+  },
+  {
+    id: 14,
+    title: "Outdoor Fitness Adventures",
+    description:
+      "Fun and effective ways to stay active outdoors with hiking, cycling, and bodyweight workouts.",
+    date: "Sep 3, 2025",
+  },
+  {
+    id: 15,
+    title: "Stress-Free Living",
+    description:
+      "Techniques like meditation, journaling, and relaxation exercises to manage stress and boost productivity.",
+    date: "Sep 4, 2025",
+  },
+  {
+    id: 16,
+    title: "Superfoods for Everyday Energy",
+    description:
+      "A guide to nutrient-dense superfoods that enhance immunity, improve metabolism, and sustain energy levels.",
+    date: "Sep 5, 2025",
+  },
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -98,8 +168,6 @@ const Article = () => {
   };
 
   return (
-    <>
-    <Navbar/>
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -174,8 +242,7 @@ const Article = () => {
         }
       `}</style>
     </div>
-    </>
   );
 };
 
-export default Article;
+export default Articles;

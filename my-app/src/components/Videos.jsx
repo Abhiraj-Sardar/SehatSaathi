@@ -1,39 +1,82 @@
-import { useState, useRef } from 'react';
-import { Play, Pause, Volume2, VolumeX, Maximize, RotateCcw } from 'lucide-react';
-import Navbar from './Navbar';
+import { useState, useRef } from "react";
+import {
+  Play,
+  Pause,
+  Volume2,
+  VolumeX,
+  Maximize,
+  RotateCcw,
+} from "lucide-react";
 
-const Videos = () => {
+const VideoPage = () => {
   const [videos, setVideos] = useState([
     {
       id: 1,
-      title: "Introduction to React Hooks",
-      summary: "Learn the fundamentals of React Hooks including useState, useEffect, and custom hooks. This comprehensive guide covers everything from basic state management to advanced patterns for building modern React applications.",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+      title: "Clean Environment, Healthy Living",
+      summary:
+        "Discover how maintaining a clean environment reduces pollution, prevents diseases, and supports overall community health. Learn simple steps individuals can take to protect nature and promote sustainable living.",
+      url: "https://media.istockphoto.com/id/2061014598/video/water-polluted-with-blue-green-algae.mp4?s=mp4-640x640-is&k=20&c=TqP8xm_2V1G2VJYurdiFoh27v_niDKO5bDpSbqIdb_U=",
       isPlaying: false,
       isMuted: false,
       currentTime: 0,
-      duration: 0
+      duration: 0,
     },
     {
       id: 2,
-      title: "Advanced JavaScript Concepts",
-      summary: "Deep dive into advanced JavaScript topics including closures, prototypes, async/await, and ES6+ features. Perfect for developers looking to enhance their JavaScript skills and write more efficient code.",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+      title: "Understanding Blood Sugar Levels",
+      summary:
+        "Learn how blood sugar affects energy, metabolism, and overall health. Discover the importance of balanced glucose levels in preventing diabetes and maintaining long-term wellness.",
+      url: "https://cdn.pixabay.com/video/2022/12/23/144006-784164313_tiny.mp4",
       isPlaying: false,
       isMuted: false,
       currentTime: 0,
-      duration: 0
+      duration: 0,
     },
     {
       id: 3,
-      title: "Building Responsive Web Apps",
-      summary: "Master the art of creating responsive web applications using modern CSS techniques, Flexbox, Grid, and mobile-first design principles. Learn how to build apps that work seamlessly across all devices.",
-      url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+      title: "Exercise for a Healthy Lifestyle",
+      summary:
+        "Discover how regular physical activity improves cardiovascular health, builds strength, enhances flexibility, and reduces stress. Learn the importance of exercise in maintaining overall wellness and boosting daily energy levels.",
+
+      url: "https://cdn.pixabay.com/video/2022/12/18/143431-782373969_tiny.mp4",
       isPlaying: false,
       isMuted: false,
       currentTime: 0,
-      duration: 0
-    }
+      duration: 0,
+    },
+    {
+      id: 4,
+      title: "Prioritizing Mental Health",
+      summary:
+        "Learn the importance of mental well-being in daily life. Explore how stress management, mindfulness, and emotional awareness contribute to resilience, happiness, and overall health.",
+      url: "https://cdn.pixabay.com/video/2016/07/28/4054-176749025_tiny.mp4",
+      isPlaying: false,
+      isMuted: false,
+      currentTime: 0,
+      duration: 0,
+    },
+    {
+      id: 5,
+      title: "The Role of Blood Cells in Health",
+      summary:
+        "Explore the vital functions of red blood cells, white blood cells, and platelets. Understand how they transport oxygen, fight infections, and heal the body, making them essential for human survival.",
+      url: "https://cdn.pixabay.com/video/2023/11/18/189681-886028714_tiny.mp4",
+      isPlaying: false,
+      isMuted: false,
+      currentTime: 0,
+      duration: 0,
+    },
+    {
+      id: 6,
+      title: "Understanding Human Genetics",
+      summary:
+        "Dive into the fascinating world of genetics and learn how DNA shapes our traits, influences health, and impacts future generations. Explore the role of genes in personalized medicine and preventive healthcare.",
+      url: "https://cdn.pixabay.com/video/2020/06/03/40967-427876030_large.mp4",
+      isPlaying: false,
+      isMuted: false,
+      currentTime: 0,
+      duration: 0,
+    },
   ]);
 
   const videoRefs = useRef({});
@@ -42,31 +85,35 @@ const Videos = () => {
     const video = videoRefs.current[id];
     if (!video) return;
 
-    setVideos(prev => prev.map(v => {
-      if (v.id === id) {
-        if (v.isPlaying) {
-          video.pause();
-          return { ...v, isPlaying: false };
-        } else {
-          video.play();
-          return { ...v, isPlaying: true };
+    setVideos((prev) =>
+      prev.map((v) => {
+        if (v.id === id) {
+          if (v.isPlaying) {
+            video.pause();
+            return { ...v, isPlaying: false };
+          } else {
+            video.play();
+            return { ...v, isPlaying: true };
+          }
         }
-      }
-      return v;
-    }));
+        return v;
+      })
+    );
   };
 
   const toggleMute = (id) => {
     const video = videoRefs.current[id];
     if (!video) return;
 
-    setVideos(prev => prev.map(v => {
-      if (v.id === id) {
-        video.muted = !v.isMuted;
-        return { ...v, isMuted: !v.isMuted };
-      }
-      return v;
-    }));
+    setVideos((prev) =>
+      prev.map((v) => {
+        if (v.id === id) {
+          video.muted = !v.isMuted;
+          return { ...v, isMuted: !v.isMuted };
+        }
+        return v;
+      })
+    );
   };
 
   const toggleFullscreen = (id) => {
@@ -85,28 +132,32 @@ const Videos = () => {
     if (!video) return;
 
     video.currentTime = 0;
-    setVideos(prev => prev.map(v => 
-      v.id === id ? { ...v, currentTime: 0 } : v
-    ));
+    setVideos((prev) =>
+      prev.map((v) => (v.id === id ? { ...v, currentTime: 0 } : v))
+    );
   };
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
   const handleTimeUpdate = (id) => {
     const video = videoRefs.current[id];
     if (!video) return;
 
-    setVideos(prev => prev.map(v => 
-      v.id === id ? { 
-        ...v, 
-        currentTime: video.currentTime,
-        duration: video.duration || 0
-      } : v
-    ));
+    setVideos((prev) =>
+      prev.map((v) =>
+        v.id === id
+          ? {
+              ...v,
+              currentTime: video.currentTime,
+              duration: video.duration || 0,
+            }
+          : v
+      )
+    );
   };
 
   const handleSeek = (id, value) => {
@@ -114,14 +165,12 @@ const Videos = () => {
     if (!video) return;
 
     video.currentTime = value;
-    setVideos(prev => prev.map(v => 
-      v.id === id ? { ...v, currentTime: value } : v
-    ));
+    setVideos((prev) =>
+      prev.map((v) => (v.id === id ? { ...v, currentTime: value } : v))
+    );
   };
 
   return (
-    <>
-    <Navbar/>
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="container mx-auto px-6 py-8">
         <header className="text-center mb-12">
@@ -129,18 +178,22 @@ const Videos = () => {
             Video Learning Center
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Master new skills with our comprehensive video tutorials featuring interactive controls and detailed summaries
+            Master new skills with our comprehensive video tutorials featuring
+            interactive controls and detailed summaries
           </p>
         </header>
 
         <div className="space-y-12">
           {videos.map((video) => (
-            <div key={video.id} className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-white/20">
+            <div
+              key={video.id}
+              className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-white/20"
+            >
               <div className="grid md:grid-cols-2 gap-8 items-start">
                 <div className="space-y-4">
                   <div className="relative rounded-xl overflow-hidden shadow-2xl bg-black">
                     <video
-                      ref={el => videoRefs.current[video.id] = el}
+                      ref={(el) => (videoRefs.current[video.id] = el)}
                       className="w-full aspect-video object-cover"
                       onTimeUpdate={() => handleTimeUpdate(video.id)}
                       onLoadedMetadata={() => handleTimeUpdate(video.id)}
@@ -148,7 +201,7 @@ const Videos = () => {
                       <source src={video.url} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
-                    
+
                     {/* Video Overlay Controls */}
                     <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                       <button
@@ -173,10 +226,16 @@ const Videos = () => {
                         min="0"
                         max={video.duration || 0}
                         value={video.currentTime}
-                        onChange={(e) => handleSeek(video.id, parseFloat(e.target.value))}
+                        onChange={(e) =>
+                          handleSeek(video.id, parseFloat(e.target.value))
+                        }
                         className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer slider"
                         style={{
-                          background: `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${(video.currentTime / video.duration) * 100}%, #4b5563 ${(video.currentTime / video.duration) * 100}%, #4b5563 100%)`
+                          background: `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${
+                            (video.currentTime / video.duration) * 100
+                          }%, #4b5563 ${
+                            (video.currentTime / video.duration) * 100
+                          }%, #4b5563 100%)`,
                         }}
                       />
                       <div className="flex justify-between text-xs text-gray-300">
@@ -198,14 +257,14 @@ const Videos = () => {
                             <Play className="w-5 h-5 text-white" />
                           )}
                         </button>
-                        
+
                         <button
                           onClick={() => restartVideo(video.id)}
                           className="bg-gray-600 hover:bg-gray-700 rounded-lg p-2 transition-all duration-200"
                         >
                           <RotateCcw className="w-5 h-5 text-white" />
                         </button>
-                        
+
                         <button
                           onClick={() => toggleMute(video.id)}
                           className="bg-gray-600 hover:bg-gray-700 rounded-lg p-2 transition-all duration-200"
@@ -217,7 +276,7 @@ const Videos = () => {
                           )}
                         </button>
                       </div>
-                      
+
                       <button
                         onClick={() => toggleFullscreen(video.id)}
                         className="bg-gray-600 hover:bg-gray-700 rounded-lg p-2 transition-all duration-200"
@@ -243,7 +302,7 @@ const Videos = () => {
                       </p>
                     </div>
                   </div>
-                  
+
                   {/* Additional Info */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="bg-white/5 rounded-lg p-4 text-center">
@@ -253,7 +312,9 @@ const Videos = () => {
                       <div className="text-sm text-gray-400">Duration</div>
                     </div>
                     <div className="bg-white/5 rounded-lg p-4 text-center">
-                      <div className="text-2xl font-bold text-green-400">HD</div>
+                      <div className="text-2xl font-bold text-green-400">
+                        HD
+                      </div>
                       <div className="text-sm text-gray-400">Quality</div>
                     </div>
                   </div>
@@ -273,9 +334,9 @@ const Videos = () => {
           background: #8b5cf6;
           cursor: pointer;
           border: 2px solid white;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
-        
+
         .slider::-moz-range-thumb {
           width: 16px;
           height: 16px;
@@ -283,12 +344,11 @@ const Videos = () => {
           background: #8b5cf6;
           cursor: pointer;
           border: 2px solid white;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
       `}</style>
     </div>
-    </>
   );
 };
 
-export default Videos;
+export default VideoPage;
