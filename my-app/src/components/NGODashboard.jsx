@@ -60,7 +60,8 @@
             </tbody>
           </table>
         </div>
-      </div>import { useState } from 'react';
+      </div>
+      import { useState } from 'react';
 import { 
   Heart, Users, Calendar, MapPin, TrendingUp, DollarSign, 
   Bell, Settings, Plus, Eye, Edit, Trash2, Phone, Mail,
