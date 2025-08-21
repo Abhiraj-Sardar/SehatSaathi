@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Ngolist from "./components/Ngolist";
 import LoginForm from "./components/LoginForm";
 import MedicalConsultationForm from "./components/MedicalConsultationForm";
+import NGOEventForm from "./components/NGOEventForm";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
     <Dashboard/>
     {/* <LoginForm/> */}
     {/* <MedicalConsultationForm/> */}
+    {/* <NGOEventForm/> */}
     </>
   );
 }
