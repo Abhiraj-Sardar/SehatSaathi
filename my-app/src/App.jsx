@@ -11,6 +11,7 @@ import PatientDashboard from "./components/PatientDashboard";
 import NGODashboard from "./components/NGODashboard";
 import ConsultHome from "./VideoConsulting/ConsultHome";
 import Meeting from "./VideoConsulting/Meeting";
+import DoctorPrescriptionPDF from "./components/DoctorPrescriptionPDF";
 import DoctorDashboard from "./components/DoctorDashboard";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route path="/Consult" element={<ConsultHome/>} />
               <Route path="/meeting/:meetingId" element={<Meeting />} />
               <Route path="/Doctor" element={<DoctorDashboard/>} />
+              <Route path="/Prescription" element={<DoctorPrescriptionPDF/>} />
         </Routes>
     </BrowserRouter>
     </>
