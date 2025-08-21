@@ -13,6 +13,7 @@ import ConsultHome from "./VideoConsulting/ConsultHome";
 import Meeting from "./VideoConsulting/Meeting";
 import DoctorPrescriptionPDF from "./components/DoctorPrescriptionPDF";
 import DoctorDashboard from "./components/DoctorDashboard";
+import Blog from "./components/Blog";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path="/meeting/:meetingId" element={<Meeting />} />
               <Route path="/Doctor" element={<DoctorDashboard/>} />
               <Route path="/Prescription" element={<DoctorPrescriptionPDF/>} />
+              <Route path="/Blog" element={<Blog/>} />
         </Routes>
     </BrowserRouter>
     </>
