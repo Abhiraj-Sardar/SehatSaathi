@@ -163,7 +163,7 @@ export default function Meeting() {
               placeholder="Type a message..."
               value={chatInput}
               onChange={(e) => setChatInput(e.target.value)}
-              className="flex-1 p-2 rounded-l-lg text-white"
+              className="flex-1 p-2 rounded-l-lg text-black"
             />
             <button
               onClick={sendMessage}

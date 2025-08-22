@@ -27,7 +27,7 @@ export default function ConsultHome() {
           placeholder="Enter meeting code"
           value={meetingCode}
           onChange={(e) => setMeetingCode(e.target.value)}
-          className="w-full p-3 rounded-lg text-white outline-none"
+          className="w-full p-3 rounded-lg text-black outline-none"
         />
 
         <button
