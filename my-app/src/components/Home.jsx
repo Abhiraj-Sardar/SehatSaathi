@@ -411,10 +411,10 @@ const Home = () => {
             listStyle: 'none',
             animation: 'slideInRight 0.8s ease-out'
           }}>
-            {['Home', 'About', 'Testimonials', 'Contact'].map((item, index) => (
+            {['Home', 'About', 'Testimonials', 'Contact','Sign Up','Login'].map((item, index) => (
               <li key={item}>
                 <a
-                  href={`#${item.toLowerCase()}`}
+                  href={(item === 'Login' || item === 'Sign Up') ? 'Login' : `#${item.toLowerCase()}`}
                   style={{
                     textDecoration: 'none',
                     color: '#374151',

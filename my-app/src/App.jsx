@@ -7,14 +7,15 @@ import Home from "./components/Home";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Article from "./components/Article";
 import Videos from "./components/Videos";
-import PatientDashboard from "./components/PatientDashboard";
 import NGODashboard from "./components/NGODashboard";
 import ConsultHome from "./VideoConsulting/ConsultHome";
 import Meeting from "./VideoConsulting/Meeting";
 import DoctorPrescriptionPDF from "./components/DoctorPrescriptionPDF";
 import DoctorDashboard from "./components/DoctorDashboard";
 import Blog from "./components/Blog";
-
+import PatientSite from "./components/PatientSite";
+import PatientDashboard from "./components/PatientDashboard";
+import HealthcareFeedbackSystem from "./components/HealthCareFeedbackSystem";
 function App() {
   return (
     <>
@@ -22,7 +23,7 @@ function App() {
     <BrowserRouter>
         <Routes>
               <Route path="/" element={<Home/>} />
-              <Route path="/Profile" element={<PatientDashboard/>}/>
+              <Route path="/Patient" element={<PatientDashboard/>}/>
               <Route path="/Login" element={<LoginForm/>} />
               <Route path="/ConsultationForm" element={<MedicalConsultationForm/>} />
               <Route path="/ngoeventform" element={<NGOEventForm/>} />
@@ -34,6 +35,7 @@ function App() {
               <Route path="/Doctor" element={<DoctorDashboard/>} />
               <Route path="/Prescription" element={<DoctorPrescriptionPDF/>} />
               <Route path="/Blog" element={<Blog/>} />
+              <Route path="/Feedback" element={<HealthcareFeedbackSystem/>} />
         </Routes>
     </BrowserRouter>
     </>
